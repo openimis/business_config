@@ -1,2 +1,2 @@
-from test_gql_business_config import BusinessConfigGQLTestCase
-from test_service_business_config import BusinessConfigServiceTestCase
+from business_config.tests.test_gql_business_config import BusinessConfigGQLTestCase
+from business_config.tests.test_service_business_config import BusinessConfigServiceTestCase
