@@ -26,6 +26,7 @@ def on_migration(apps, schema_editor):
 class Migration(migrations.Migration):
     dependencies = [
         ('business_config', '0001_initial'),
+        ('core', '0025_mutationlog_json_ext'),
     ]
 
     operations = [
