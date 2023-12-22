@@ -12,5 +12,8 @@ service_create_payload = {
 }
 
 service_update_payload = {
+    'key': 'key1',
     'value': 'value2',
+    'date_valid_from': str(yesterday),
+    'date_valid_to': str(tomorrow),
 }
