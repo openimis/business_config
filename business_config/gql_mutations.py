@@ -17,12 +17,8 @@ class CreateBusinessConfigInput(OpenIMISMutation.Input):
     date_valid_to = graphene.Date(required=True)
 
 
-class UpdateBusinessConfigInput(OpenIMISMutation.Input):
+class UpdateBusinessConfigInput(CreateBusinessConfigInput):
     id = graphene.ID(required=True)
-    key = graphene.String(max_length=255)
-    value = graphene.String(max_length=255)
-    date_valid_from = graphene.Date()
-    date_valid_to = graphene.Date()
 
 
 class DeleteBusinessConfigInput(OpenIMISMutation.Input):

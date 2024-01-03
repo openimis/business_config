@@ -1,2 +1,4 @@
 from business_config.tests.test_gql_business_config import BusinessConfigGQLTestCase
 from business_config.tests.test_service_business_config import BusinessConfigServiceTestCase
+from business_config.tests.test_validation_business_config import BusinessConfigValidationTestCase
+from business_config.tests.test_gql_current_business_config import CurrentBusinessConfigGQLTestCase

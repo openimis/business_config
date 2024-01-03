@@ -6,6 +6,8 @@ from django.utils.translation import gettext as _
 
 from business_config.gql_mutations import CreateBusinessConfigMutation, DeleteBusinessConfigMutation, \
     UpdateBusinessConfigMutation
+from business_config.services import get_current_config_field_filter
+from core import datetime
 from core.schema import OrderedDjangoFilterConnectionField
 from business_config.models import BusinessConfig
 from business_config.gql_queries import BusinessConfigGQLType
@@ -21,6 +23,11 @@ class Query(graphene.ObjectType):
         client_mutation_id=graphene.String(),
     )
 
+    current_business_config = OrderedDjangoFilterConnectionField(
+        BusinessConfigGQLType,
+        date=graphene.Date()
+    )
+
     def resolve_business_config(self, info, client_mutation_id=None, **kwargs):
         query = BusinessConfig.objects
 
@@ -28,6 +35,17 @@ class Query(graphene.ObjectType):
 
         if client_mutation_id:
             filters.append(Q(mutations__mutation__client_mutation_id=client_mutation_id))
+
+        return gql_optimizer.query(query.filter(*filters), info)
+
+    def resolve_current_business_config(self, info, key=None, date=None, **kwargs):
+        query = BusinessConfig.objects
+
+        if not key:
+            raise AttributeError("business_config.validation.key_required")
+
+        filters = append_validity_filter(**kwargs)
+        filters += get_current_config_field_filter(key, date or datetime.date.today())
 
         return gql_optimizer.query(query.filter(*filters), info)
 

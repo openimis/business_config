@@ -22,24 +22,24 @@ class BusinessConfigServiceTestCase(TestCase):
     def test_create(self):
         res = self.service.create(service_create_payload)
 
-        self.assertTrue(res.get('success', False), res.get("message", "Unknown error"))
+        self.assertTrue(res.get('success', False), res.get("detail", "Unknown error"))
         self.assertEquals(BusinessConfig.objects.filter(is_deleted=False).count(), 1)
 
     def test_update(self):
         res = self.service.create(service_create_payload)
-        self.assertTrue(res.get('success', False), res.get("message", "Unknown error"))
+        self.assertTrue(res.get('success', False), res.get("detail", "Unknown error"))
         self.assertEquals(BusinessConfig.objects.filter(is_deleted=False).count(), 1)
 
         res = self.service.update({**service_update_payload, **{'id': res.get("data", {}).get("id", None)}})
 
-        self.assertTrue(res.get('success', False), res.get("message", "Unknown error"))
+        self.assertTrue(res.get('success', False), res.get("detail", "Unknown error"))
         self.assertEquals(BusinessConfig.objects.filter(is_deleted=False).count(), 1)
 
     def test_delete(self):
         res = self.service.create(service_create_payload)
-        self.assertTrue(res.get('success', False), res.get("message", "Unknown error"))
+        self.assertTrue(res.get('success', False), res.get("detail", "Unknown error"))
         self.assertEquals(BusinessConfig.objects.filter(is_deleted=False).count(), 1)
 
         res = self.service.delete({'id': res.get("data", {}).get("id", None)})
-        self.assertTrue(res.get('success', False), res.get("message", "Unknown error"))
+        self.assertTrue(res.get('success', False), res.get("detail", "Unknown error"))
         self.assertEquals(BusinessConfig.objects.filter(is_deleted=True).count(), 1)

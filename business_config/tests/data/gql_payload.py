@@ -21,6 +21,38 @@ query q {
 }
 """
 
+gql_query_payload_current = """
+query q {
+    currentBusinessConfig(key: "key1") {
+        edges {
+            node {
+                id
+                key
+                value
+                dateValidFrom
+                dateValidTo
+            }
+        }
+    }
+}
+"""
+
+gql_query_payload_date = """
+query q ($date: Date!) {
+    currentBusinessConfig(key: "key1", date: $date) {
+        edges {
+            node {
+                id
+                key
+                value
+                dateValidFrom
+                dateValidTo
+            }
+        }
+    }
+}
+"""
+
 gql_create_payload = f"""
 mutation m {{
     createBusinessConfig(input: {{
@@ -39,7 +71,10 @@ gql_update_payload = f"""
 mutation m ($id: ID!) {{
     updateBusinessConfig(input: {{
         id: $id
+        key: "key1"
         value: "value2"
+        dateValidFrom: "{str(yesterday)}"
+        dateValidTo: "{str(tomorrow)}"
         clientMutationId: "{mutation_id}"
     }}) {{
         clientMutationId
