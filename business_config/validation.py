@@ -22,7 +22,8 @@ class BusinessConfigValidation(BaseModelValidation):
     def _check_date_range_overlap(**data):
         # Date range overlap
         filters = [Q(date_valid_from__date__lte=data.get('date_valid_to'),
-                     date_valid_to__date__gte=data.get('date_valid_from'))]
+                     date_valid_to__date__gte=data.get('date_valid_from'),
+                     is_deleted=False)]
 
         # skip current record on update
         obj_id = data.get('id', None)
