@@ -37,6 +37,19 @@ class BusinessConfigValidationTestCase(TestCase):
         except ValidationException as e:
             self.fail(f"Validation failed: {e}")
 
+    def test_valid_deleted_overlap(self):
+        data = self._create_config(date_valid_from=yesterday,
+                                   date_valid_to=tomorrow + self.delta_3_days,
+                                   is_deleted=True)
+
+        payload = {**service_create_payload, 'date_valid_from': tomorrow,
+                   'date_valid_to': tomorrow + self.delta_3_days, 'id': data.get('id')}
+
+        try:
+            self.validation.validate_update(self.user, **payload)
+        except ValidationException as e:
+            self.fail(f"Validation failed: {e}")
+
     def test_invalid_create_dates_overlap(self):
         self._create_config()
         payload = {**service_create_payload, 'date_valid_from': tomorrow,
