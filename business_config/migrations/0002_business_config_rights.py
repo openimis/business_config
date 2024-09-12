@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ('business_config', '0001_initial'),
         ('core', '0025_mutationlog_json_ext'),
+        ('location', '0002_location'), # Workaround for migration issue
     ]
 
     operations = [
